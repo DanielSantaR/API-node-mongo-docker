@@ -31,7 +31,7 @@ studentsRoutes.route("/").get(function (req, res) {
 });
 
 // Defined edit route
-studentsRoutes.route("/edit/:id").get(function (req, res) {
+studentsRoutes.route("/:id").get(function (req, res) {
   let id = req.params.id;
   Student.findById(id, function (err, student) {
     res.json(student);
@@ -39,7 +39,7 @@ studentsRoutes.route("/edit/:id").get(function (req, res) {
 });
 
 // Defined update route
-studentsRoutes.route("/update/:id").post(function (req, res, next) {
+studentsRoutes.route("/:id").put(function (req, res, next) {
   let id = req.params.id;
   Student.findById(id, function (err, student) {
     //if (!student) res.status(400).send("unable to update the database");
@@ -62,7 +62,7 @@ studentsRoutes.route("/update/:id").post(function (req, res, next) {
 });
 
 // Defined delete | remove | destroy route
-studentsRoutes.route("/delete/:id").delete(function (req, res) {
+studentsRoutes.route("/:id").delete(function (req, res) {
   Student.findByIdAndRemove({ _id: req.params.id }, function (err, student) {
     if (err) res.json(err);
     else res.json("Successfully removed");
