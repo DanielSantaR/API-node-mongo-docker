@@ -1,0 +1,32 @@
+version: "2"
+services:
+  apinode:
+    image: api-node
+    build:
+      context: .
+    ports:
+      - 4000:4000
+    environment:
+      - MONGO_USERNAME=$MONGO_USERNAME
+      - MONGO_PASSWORD=$MONGO_PASSWORD
+      - MONGO_HOSTNAME=$MONGO_HOSTNAME
+      - MONGO_PORT=$MONGO_PORT
+      - MONGO_DB=$MONGO_DB
+    networks:
+      - ing-web
+    depends_on:
+      - mongo-db
+
+  mongo-db:
+    image: mongo:4.4.2
+    networks:
+      - ing-web
+    volumes:
+      - dbdata:/data/db
+
+networks:
+  ing-web:
+    external: true
+volumes:
+  dbdata:
+    external: true
