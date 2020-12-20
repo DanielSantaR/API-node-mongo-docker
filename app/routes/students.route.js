@@ -5,8 +5,24 @@ const studentsRoutes = express.Router();
 const Student = require("../models/Student");
 const utils = require("../utils");
 
+
+// Defined average
+studentsRoutes.route("/average").get(function (req, res) {
+  let average = {
+    average: 0,
+  };
+  Student.find(function (err, students) {
+    if (err) {
+      console.log(err);
+    } else {
+      average.average = utils.getTotalAverage(students);
+      res.json(average);
+    }
+  });
+});
+
 // Defined store route
-studentsRoutes.route("/add").post(function (req, res) {
+studentsRoutes.route("").post(function (req, res) {
   let student = new Student(req.body);
   student.average = utils.getAverage(student.grades);
   student
@@ -20,7 +36,7 @@ studentsRoutes.route("/add").post(function (req, res) {
 });
 
 // Defined get data(index or listing) route
-studentsRoutes.route("/").get(function (req, res) {
+studentsRoutes.route("").get(function (req, res) {
   Student.find(function (err, students) {
     if (err) {
       console.log(err);
@@ -66,21 +82,6 @@ studentsRoutes.route("/:id").delete(function (req, res) {
   Student.findByIdAndRemove({ _id: req.params.id }, function (err, student) {
     if (err) res.json(err);
     else res.json("Successfully removed");
-  });
-});
-
-// Defined average
-studentsRoutes.route("/average").get(function (req, res) {
-  let average = {
-    average: 0,
-  };
-  Student.find(function (err, students) {
-    if (err) {
-      console.log(err);
-    } else {
-      average.average = utils.getTotalAverage(students);
-      res.json(average);
-    }
   });
 });
 
