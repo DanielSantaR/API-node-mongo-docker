@@ -49,7 +49,12 @@ The importance of the use of containers lies in the ease of execution and distri
 		curl --request GET \ 
 		    --url http://localhost:4000/students/5fdae088a819cafc65bedc5d
 		```
-
+	
+	- Get average:
+		```json
+		curl --request GET \
+  			--url http://localhost:4000/students/average
+		```
   
 
 - ***Post:*** 
